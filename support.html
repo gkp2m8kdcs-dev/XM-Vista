@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — XM Vista</title>
+    <meta name="description" content="Get help with XM Vista. Frequently asked questions, troubleshooting, and direct contact with our support team.">
+    <meta name="theme-color" content="#0B1733">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B1733'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia' font-size='60' font-weight='700' fill='%23D4AF37'%3EX%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            background: #0B1733; color: #E8EAF2; line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            padding: 28px 0; border-bottom: 1px solid rgba(212,175,55,0.1);
+            background: rgba(11, 23, 51, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+        .brand-mark {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: linear-gradient(135deg, #0B1733 0%, #14254A 100%);
+            border: 1px solid rgba(212,175,55,0.4);
+            display: flex; align-items: center; justify-content: center;
+            font-family: Georgia, serif; font-weight: 700; font-size: 24px; color: #D4AF37;
+        }
+        .brand-name { font-size: 18px; font-weight: 600; }
+        .back-link { color: #B8C2DD; text-decoration: none; font-size: 14px; }
+        .back-link:hover { color: #D4AF37; }
+
+        .hero {
+            padding: 64px 0 40px;
+            background: radial-gradient(ellipse at top, rgba(212,175,55,0.08) 0%, transparent 50%);
+        }
+        .hero h1 {
+            font-family: Georgia, serif; font-size: 44px; color: #fff;
+            font-weight: 600; margin-bottom: 14px; letter-spacing: -0.5px;
+        }
+        .hero p { color: #B8C2DD; font-size: 17px; max-width: 600px; }
+
+        .contact-card {
+            margin-top: 32px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(20,37,74,0.6) 100%);
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 18px; padding: 32px;
+            display: flex; gap: 24px; align-items: center;
+        }
+        .contact-icon {
+            flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px;
+            background: rgba(212,175,55,0.18); border: 1px solid #D4AF37;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px;
+        }
+        .contact-text h3 { color: #fff; font-size: 16px; margin-bottom: 4px; }
+        .contact-text a {
+            color: #D4AF37; font-size: 18px; font-weight: 600;
+            text-decoration: none; word-break: break-all;
+        }
+        .contact-text a:hover { text-decoration: underline; }
+        .contact-text small { display: block; color: #8A95B5; font-size: 12px; margin-top: 6px; }
+
+        main { padding: 50px 0 80px; }
+        section { margin-bottom: 50px; }
+        h2 {
+            font-family: Georgia, serif; font-size: 28px; color: #fff;
+            font-weight: 600; margin-bottom: 22px; padding-top: 10px;
+        }
+        h2 .num {
+            display: inline-block; font-family: Georgia, serif;
+            color: #D4AF37; margin-right: 10px;
+        }
+
+        .faq-item {
+            background: rgba(20,37,74,0.4);
+            border: 1px solid rgba(212,175,55,0.1);
+            border-radius: 14px; margin-bottom: 14px; overflow: hidden;
+            transition: border-color .2s;
+        }
+        .faq-item:hover { border-color: rgba(212,175,55,0.3); }
+        .faq-q {
+            padding: 18px 22px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            color: #fff; font-size: 15px; font-weight: 600;
+            user-select: none;
+        }
+        .faq-q::after {
+            content: '+'; font-size: 22px; color: #D4AF37;
+            transition: transform .25s; font-weight: 300;
+        }
+        .faq-item.open .faq-q::after { transform: rotate(45deg); }
+        .faq-a {
+            max-height: 0; overflow: hidden;
+            transition: max-height .3s ease;
+        }
+        .faq-a-inner {
+            padding: 0 22px 18px; color: #C9D1E5; font-size: 14px;
+            border-top: 1px solid rgba(212,175,55,0.08);
+            padding-top: 16px;
+        }
+        .faq-item.open .faq-a { max-height: 500px; }
+
+        .grid-2 {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+        }
+        .card {
+            background: rgba(20,37,74,0.4);
+            border: 1px solid rgba(212,175,55,0.1);
+            border-radius: 14px; padding: 22px;
+        }
+        .card h3 { color: #fff; font-size: 15px; margin-bottom: 8px; }
+        .card p { color: #B8C2DD; font-size: 14px; }
+
+        .tips {
+            background: linear-gradient(135deg, rgba(74,222,128,0.06) 0%, rgba(20,37,74,0.4) 100%);
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 14px; padding: 24px 28px;
+        }
+        .tips h3 { color: #fff; font-size: 16px; margin-bottom: 12px; }
+        .tips ol { color: #C9D1E5; margin-left: 22px; font-size: 14px; }
+        .tips li { margin-bottom: 8px; }
+
+        footer {
+            padding: 36px 0; border-top: 1px solid rgba(212,175,55,0.1);
+            background: #08122A; text-align: center;
+        }
+        footer .links { display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+        footer a { color: #B8C2DD; text-decoration: none; font-size: 13px; }
+        footer a:hover { color: #D4AF37; }
+        footer .copy { font-size: 12px; color: #8A95B5; }
+
+        @media (max-width: 560px) {
+            .hero h1 { font-size: 32px; }
+            h2 { font-size: 22px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .contact-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-mark">X</div>
+                <div class="brand-name">XM Vista</div>
+            </a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Support</h1>
+            <p>Need help with XM Vista? Find answers to common questions, walkthroughs for the main features, and direct contact information below.</p>
+
+            <div class="contact-card">
+                <div class="contact-icon">@</div>
+                <div class="contact-text">
+                    <h3>Email Support</h3>
+                    <a href="mailto:litzybuziemextn527@gmail.com">litzybuziemextn527@gmail.com</a>
+                    <small>We reply within 7 business days · English</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+
+            <section>
+                <h2><span class="num">01.</span>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-q">Is my financial data uploaded anywhere?</div>
+                    <div class="faq-a"><div class="faq-a-inner">No. XM Vista stores every entry locally on your iPhone. There is no account, no server, and no sync. Your data never leaves your device unless you explicitly export it as a CSV file from inside the app. See our <a href="privacy.html" style="color:#D4AF37;">Privacy Policy</a> for full details.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Does XM Vista connect to my brokerage or place trades?</div>
+                    <div class="faq-a"><div class="faq-a-inner">No. XM Vista is a journal, analyzer, simulator, and calculator. It does not connect to brokerages, does not execute trades, and does not custody funds. All entries are typed in by you. We do not provide investment advice — please consult a licensed advisor for personalized guidance.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">How do I export my data?</div>
+                    <div class="faq-a"><div class="faq-a-inner">Open <strong>Settings → Data</strong> inside the app. From there you can export Holdings, Transactions, or Receipts to CSV. The file is generated on-device and shared through the iOS share sheet — you choose where it goes (Files, Mail, AirDrop, etc.).</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">What happens to my data if I delete the app?</div>
+                    <div class="faq-a"><div class="faq-a-inner">All data lives inside the app's sandboxed storage. Deleting the app permanently deletes the data along with it. If you think you might delete the app, export a CSV first.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">The app is slow when I have many holdings — what can I do?</div>
+                    <div class="faq-a"><div class="faq-a-inner">XM Vista is built to handle thousands of holdings, but very large journals can take a moment to render Canvas charts. Try the following: (1) close and reopen the app, (2) restart your iPhone, (3) make sure you are on the latest version. If the issue persists, contact support with your iOS version.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">My camera permission was denied — how do I re-enable it?</div>
+                    <div class="faq-a"><div class="faq-a-inner">Open the iOS <strong>Settings</strong> app → scroll to <strong>XM Vista</strong> → toggle <strong>Camera</strong> on. Then return to XM Vista and try attaching a photo again.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Will my data sync to a new iPhone?</div>
+                    <div class="faq-a"><div class="faq-a-inner">Not automatically. XM Vista is intentionally offline-first. If you restore a new iPhone from an iCloud or iTunes backup, the app's data <em>may</em> be restored by iOS as part of that process. If not, contact support with your previous install date and we will do our best to help you migrate.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Does XM Vista show live market prices?</div>
+                    <div class="faq-a"><div class="faq-a-inner">XM Vista is a journaling tool, not a market-data terminal. Prices shown are the ones <em>you enter</em>. This is deliberate — it keeps the app private, fast, and free of third-party data feeds.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">How do I reset all my data?</div>
+                    <div class="faq-a"><div class="faq-a-inner">Go to <strong>Settings → Data → Reset Everything</strong>. You will be asked to confirm. We recommend exporting a CSV backup first. The reset is irreversible.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-q">Is there a Mac or iPad version?</div>
+                    <div class="faq-a"><div class="faq-a-inner">XM Vista 1.0 is iPhone-only and requires iOS 16 or later. There are no current plans for iPad or macOS versions, but we are listening to user feedback.</div></div>
+                </div>
+            </section>
+
+            <section>
+                <h2><span class="num">02.</span>Getting Started</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>1. Add your first holding</h3>
+                        <p>Open the Portfolio tab, tap the + button, and enter asset name, asset class, quantity, and cost basis.</p>
+                    </div>
+                    <div class="card">
+                        <h3>2. Log a transaction</h3>
+                        <p>Open Journal → tap + → choose buy, sell, dividend, or split. Add tags and notes for richer analysis.</p>
+                    </div>
+                    <div class="card">
+                        <h3>3. Try a calculator</h3>
+                        <p>Open Tools and explore Compound Interest, Loan, Currency, Retirement, DCA Simulator, or Risk Assessment.</p>
+                    </div>
+                    <div class="card">
+                        <h3>4. Set a goal</h3>
+                        <p>Open Goals → + → pick savings, investment, or retirement. Add a deadline and XM Vista will suggest a pace.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2><span class="num">03.</span>Before You Contact Us</h2>
+                <div class="tips">
+                    <h3>To help us resolve your issue quickly, please include:</h3>
+                    <ol>
+                        <li>Your iPhone model and iOS version (Settings → General → About)</li>
+                        <li>The XM Vista version number (shown on the Settings screen)</li>
+                        <li>A clear description of the issue and the screen on which it occurs</li>
+                        <li>Steps you have already tried (e.g., restart, reinstall)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section>
+                <h2><span class="num">04.</span>Still Need Help?</h2>
+                <p>Email us at <a href="mailto:litzybuziemextn527@gmail.com" style="color:#D4AF37;">litzybuziemextn527@gmail.com</a> and we will get back to you within 7 business days.</p>
+                <p style="margin-top:14px;"><strong>App Name:</strong> XM Vista · <strong>Version:</strong> 1.0.0</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use</a>
+                <a href="mailto:litzybuziemextn527@gmail.com">litzybuziemextn527@gmail.com</a>
+            </div>
+            <div class="copy">© 2026 XM Vista. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

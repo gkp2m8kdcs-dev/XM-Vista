@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XM Vista — Personal Investment Journal & Tracker</title>
+    <meta name="description" content="XM Vista is a privacy-first personal finance and investment journal. Track your portfolio, log trades, set goals, and access professional calculators — all on your device.">
+    <meta name="theme-color" content="#0B1733">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B1733'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia' font-size='60' font-weight='700' fill='%23D4AF37'%3EX%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            background: #0B1733;
+            color: #E8EAF2;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(11, 23, 51, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+        }
+        .nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 0;
+        }
+        .brand {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: #fff;
+        }
+        .brand-mark {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: linear-gradient(135deg, #0B1733 0%, #14254A 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            font-family: Georgia, serif; font-weight: 700; font-size: 24px;
+            color: #D4AF37;
+        }
+        .brand-name { font-size: 18px; font-weight: 600; letter-spacing: 0.3px; }
+        .brand-tag { font-size: 11px; color: #8A95B5; margin-top: 2px; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            color: #B8C2DD; text-decoration: none; font-size: 14px;
+            font-weight: 500; transition: color .2s;
+        }
+        .nav-links a:hover { color: #D4AF37; }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -200px; right: -200px;
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-grid {
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center;
+        }
+        .eyebrow {
+            display: inline-block; font-size: 12px; letter-spacing: 2px;
+            color: #D4AF37; font-weight: 600; margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 58px; font-weight: 600; line-height: 1.05;
+            color: #fff; margin-bottom: 24px; letter-spacing: -1px;
+        }
+        h1 .accent { color: #D4AF37; font-style: italic; }
+        .lede {
+            font-size: 19px; color: #B8C2DD; margin-bottom: 36px;
+            max-width: 540px;
+        }
+        .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 28px; border-radius: 12px;
+            font-size: 15px; font-weight: 600; text-decoration: none;
+            transition: all .2s; cursor: pointer; border: none;
+        }
+        .btn-primary {
+            background: #D4AF37; color: #0B1733;
+            box-shadow: 0 8px 24px rgba(212,175,55,0.25);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(212,175,55,0.35); }
+        .btn-ghost {
+            background: transparent; color: #E8EAF2;
+            border: 1px solid rgba(232,234,242,0.2);
+        }
+        .btn-ghost:hover { border-color: #D4AF37; color: #D4AF37; }
+
+        .hero-visual {
+            background: linear-gradient(145deg, #14254A 0%, #0B1733 100%);
+            border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 24px; padding: 28px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .mock-screen { color: #E8EAF2; }
+        .mock-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+        .mock-title { font-size: 14px; color: #8A95B5; }
+        .mock-value { font-size: 28px; font-weight: 700; color: #fff; font-family: Georgia, serif; }
+        .mock-change { font-size: 13px; color: #4ADE80; margin-top: 4px; }
+        .mock-chart {
+            height: 130px; margin: 18px 0;
+            background: linear-gradient(180deg, rgba(212,175,55,0.18) 0%, transparent 100%);
+            border-radius: 12px; position: relative; overflow: hidden;
+        }
+        .mock-chart svg { width: 100%; height: 100%; }
+        .mock-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+            margin-top: 16px;
+        }
+        .mock-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; padding: 12px;
+        }
+        .mock-card-label { font-size: 10px; color: #8A95B5; text-transform: uppercase; letter-spacing: 1px; }
+        .mock-card-value { font-size: 16px; color: #fff; font-weight: 600; margin-top: 4px; }
+
+        /* Section */
+        section { padding: 80px 0; }
+        .section-head { text-align: center; margin-bottom: 56px; }
+        .section-head h2 {
+            font-family: Georgia, serif; font-size: 40px; font-weight: 600;
+            color: #fff; margin-bottom: 14px; letter-spacing: -0.5px;
+        }
+        .section-head p { color: #B8C2DD; font-size: 17px; max-width: 640px; margin: 0 auto; }
+
+        /* Features */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .feature {
+            background: linear-gradient(160deg, rgba(20,37,74,0.6) 0%, rgba(11,23,51,0.4) 100%);
+            border: 1px solid rgba(212,175,55,0.1);
+            border-radius: 18px; padding: 32px 28px;
+            transition: border-color .25s, transform .25s;
+        }
+        .feature:hover { border-color: rgba(212,175,55,0.35); transform: translateY(-3px); }
+        .feature-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.05));
+            border: 1px solid rgba(212,175,55,0.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin-bottom: 18px;
+        }
+        .feature h3 { font-size: 18px; color: #fff; margin-bottom: 8px; font-weight: 600; }
+        .feature p { font-size: 14px; color: #B8C2DD; }
+
+        /* Pillars */
+        .pillars {
+            background: linear-gradient(180deg, rgba(20,37,74,0.4) 0%, rgba(11,23,51,0) 100%);
+            border-top: 1px solid rgba(212,175,55,0.1);
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        .pillars-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+        }
+        .pillar { text-align: center; }
+        .pillar-num {
+            font-family: Georgia, serif; font-size: 42px; font-weight: 600;
+            color: #D4AF37; margin-bottom: 8px;
+        }
+        .pillar-label { font-size: 13px; color: #B8C2DD; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* Privacy band */
+        .privacy-band { padding: 70px 0; }
+        .privacy-card {
+            background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(20,37,74,0.6) 100%);
+            border: 1px solid rgba(212,175,55,0.22);
+            border-radius: 22px; padding: 48px;
+            display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: center;
+        }
+        .privacy-card h2 {
+            font-family: Georgia, serif; font-size: 34px; color: #fff;
+            margin-bottom: 18px; line-height: 1.2;
+        }
+        .privacy-card p { color: #B8C2DD; font-size: 16px; margin-bottom: 14px; }
+        .privacy-list { list-style: none; margin-top: 24px; }
+        .privacy-list li {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 0; color: #E8EAF2; font-size: 15px;
+        }
+        .privacy-list .check {
+            flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+            background: rgba(212,175,55,0.2); border: 1px solid #D4AF37;
+            color: #D4AF37; font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* CTA */
+        .final-cta {
+            text-align: center; padding: 90px 0;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 60%);
+        }
+        .final-cta h2 {
+            font-family: Georgia, serif; font-size: 44px; color: #fff;
+            margin-bottom: 18px;
+        }
+        .final-cta p { color: #B8C2DD; font-size: 17px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+        /* Footer */
+        footer {
+            padding: 50px 0 40px;
+            border-top: 1px solid rgba(212,175,55,0.1);
+            background: #08122A;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
+            margin-bottom: 32px;
+        }
+        .footer-col h4 {
+            font-size: 13px; color: #D4AF37; text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 16px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            color: #B8C2DD; text-decoration: none; font-size: 14px;
+            transition: color .2s;
+        }
+        .footer-col a:hover { color: #D4AF37; }
+        .footer-about p { font-size: 13px; color: #8A95B5; margin-top: 8px; }
+        .footer-bottom {
+            padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+            font-size: 12px; color: #8A95B5;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid, .privacy-card { grid-template-columns: 1fr; }
+            h1 { font-size: 42px; }
+            .features-grid, .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 560px) {
+            .nav-links { display: none; }
+            .features-grid, .pillars-grid, .footer-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 34px; }
+            .section-head h2, .final-cta h2 { font-size: 30px; }
+            section, .hero { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-mark">X</div>
+                <div>
+                    <div class="brand-name">XM Vista</div>
+                    <div class="brand-tag">Investment Journal</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pillars">Specs</a>
+                <a href="#privacy">Privacy</a>
+                <a href="support.html">Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow">VistaFolio · v1.0.0</span>
+                <h1>Your panoramic view of <span class="accent">wealth.</span></h1>
+                <p class="lede">XM Vista is a personal investment journal built for long-term investors. Track multi-asset portfolios, log trades, set goals, and use professional calculators — all on your device.</p>
+                <div class="cta-row">
+                    <a href="#features" class="btn btn-primary">Explore the app</a>
+                    <a href="#privacy" class="btn btn-ghost">Our privacy promise</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="mock-screen">
+                    <div class="mock-header">
+                        <div>
+                            <div class="mock-title">Net Worth</div>
+                            <div class="mock-value">$248,392.16</div>
+                            <div class="mock-change">▲ +$3,124.50 · +1.28% today</div>
+                        </div>
+                    </div>
+                    <div class="mock-chart">
+                        <svg viewBox="0 0 400 130" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/>
+                                    <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,90 L40,72 L80,80 L120,55 L160,62 L200,40 L240,48 L280,28 L320,35 L360,18 L400,22 L400,130 L0,130 Z" fill="url(#g)"/>
+                            <path d="M0,90 L40,72 L80,80 L120,55 L160,62 L200,40 L240,48 L280,28 L320,35 L360,18 L400,22" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="mock-grid">
+                        <div class="mock-card">
+                            <div class="mock-card-label">Equities</div>
+                            <div class="mock-card-value">42%</div>
+                        </div>
+                        <div class="mock-card">
+                            <div class="mock-card-label">Crypto</div>
+                            <div class="mock-card-value">18%</div>
+                        </div>
+                        <div class="mock-card">
+                            <div class="mock-card-label">Bonds</div>
+                            <div class="mock-card-value">24%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-head">
+                <h2>Everything a serious investor needs</h2>
+                <p>Built for calm, focused decision-making — without the noise of social feeds, ads, or brokerage pop-ups.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Multi-Asset Portfolio</h3>
+                    <p>Track equities, ETFs, crypto, bonds, REITs, commodities, and cash side by side with interactive Canvas charts.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📓</div>
+                    <h3>Trade Journal</h3>
+                    <p>Log every buy, sell, dividend, and split with tags, notes, fees, and photo attachments snapped from the camera.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧾</div>
+                    <h3>Receipt Manager</h3>
+                    <p>Snap receipts as you spend and watch your spending break down by category — all stored locally.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Goal Planner</h3>
+                    <p>Set savings, investment, and retirement goals with progress bars, contribution timelines, and pace recommendations.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧮</div>
+                    <h3>Six Calculators</h3>
+                    <p>Compound interest, loan, currency converter, retirement, DCA simulator, and risk assessment — built in.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <h3>Education Library</h3>
+                    <p>Eight curated articles across six categories and three difficulty levels, from beginner to advanced.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars" id="pillars">
+        <div class="container">
+            <div class="pillars-grid">
+                <div class="pillar"><div class="pillar-num">8</div><div class="pillar-label">Asset Classes</div></div>
+                <div class="pillar"><div class="pillar-num">9</div><div class="pillar-label">Currencies</div></div>
+                <div class="pillar"><div class="pillar-num">6</div><div class="pillar-label">Calculators</div></div>
+                <div class="pillar"><div class="pillar-num">0</div><div class="pillar-label">Trackers</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="privacy-band" id="privacy">
+        <div class="container">
+            <div class="privacy-card">
+                <div>
+                    <span class="eyebrow">Privacy Promise</span>
+                    <h2>Your data lives on your device. Period.</h2>
+                </div>
+                <div>
+                    <p>XM Vista was built on a simple principle: a personal investment journal should not need to phone home. There are no accounts, no servers, and no analytics SDKs of any kind.</p>
+                    <ul class="privacy-list">
+                        <li><span class="check">✓</span><span>No login or sign-up required</span></li>
+                        <li><span class="check">✓</span><span>No analytics SDKs, no third-party trackers, no crash reporting services</span></li>
+                        <li><span class="check">✓</span><span>No brokerage integrations, no order routing, no trade execution</span></li>
+                        <li><span class="check">✓</span><span>All portfolio data is stored in a local JSON snapshot on your iPhone</span></li>
+                        <li><span class="check">✓</span><span>One-tap CSV export whenever you want to leave</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h2>Made for the long-term investor.</h2>
+            <p>A journal, analyzer, simulator, and calculator — designed for calm focus, with a deep navy and gold palette tuned for serious thinking.</p>
+            <a href="support.html" class="btn btn-primary">Contact Support</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <div class="brand">
+                        <div class="brand-mark">X</div>
+                        <div>
+                            <div class="brand-name">XM Vista</div>
+                            <div class="brand-tag">Investment Journal</div>
+                        </div>
+                    </div>
+                    <p>Your panoramic view of wealth. Track, log, plan, and learn — privately.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pillars">Specs</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:litzybuziemextn527@gmail.com">litzybuziemextn527@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 XM Vista. All rights reserved.</div>
+                <div>Designed for iPhone · iOS 16+</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
